@@ -1,6 +1,6 @@
 /* Advent of Code Day 4! 
 Part 1 Goal: Count how many paper rolls are accessible to the forklift
-Part 2 Goal: ??
+Part 2 Goal: Count how many rolls are accessible after removing accessible rolls
 - A roll is accessible if there are fewer than 4 rolls around it (in the 8 adjacent spots)
 */
 
@@ -31,13 +31,20 @@ function countAdj(i,j) {
     return counter;
 }
 
-
-for (let i = 0; i < array.length; i++) {
-    var row = array[i];
-    for (let j = 0; j < row.length; j++) {
-        var elt = row[j];
-        if (elt == '@' && countAdj(i,j) < 4) { rolls++ }
+while(true) {
+    var removeLoop = 0;
+    for (let i = 0; i < array.length; i++) {
+        var row = array[i];
+        for (let j = 0; j < row.length; j++) {
+            var elt = row[j];
+            if (elt == '@' && countAdj(i,j) < 4) { 
+                removeLoop++;
+                array[i][j]='X'
+            }
+        }
     }
+    if (removeLoop == 0) break;
+    rolls += removeLoop;
 }
 
-console.log(rolls)
+console.log(rolls);
