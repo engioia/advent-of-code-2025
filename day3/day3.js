@@ -1,6 +1,6 @@
 /* Advent of Code Day 3! 
 Part 1 Goal: Calculate total output joltage, ie. the sum of the maximum joltage from each bank
-Part 2 Goal: ??
+Part 2 Goal: Calculate total output joltage, but joltage now has 12 digits!
 - The maximum joltage for a bank is the highest number formed by joining two digits from the bank
 */
 
@@ -25,9 +25,12 @@ function maxLTR (bank, start, end) {
 
 
 for (const bank of data) {
-    var firstDigit = maxLTR(bank,0,bank.length-2);
-    var secondDigit = maxLTR(bank,firstDigit[1]+1,bank.length);
-    var bankJoltage = firstDigit[0]+secondDigit[0];
+    var bankJoltage = "";
+    for (var i = 0; bankJoltage.length <= 11; i++) {
+        var digit = maxLTR(bank,i,bank.length-(12-bankJoltage.length));
+        bankJoltage += digit[0];
+        i = digit[1];
+    }
     joltageSum += Number(bankJoltage);
 }
 
